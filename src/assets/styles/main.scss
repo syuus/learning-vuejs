@@ -14,4 +14,8 @@ h1, h2 {
   li > .done {
     text-decoration: line-through;
   }
+
+  [v-cloak] {
+    display: none;
+  }
 }
