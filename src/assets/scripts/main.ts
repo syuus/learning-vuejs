@@ -1,28 +1,27 @@
 import Vue from 'vue';
-import axios from 'axios';
 
 const app = new Vue({
   el: '#app',
   data: {
-    bpi: null,
-    hasError: false,
-    loading: true
+    km: 0,
+    m: 0,
+    mm: 0,
   },
-  mounted: function() {
-    axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
-    .then(function(response) {
-      this.bpi = response.data.bpi;
-    }.bind(this))
-    .catch(function(error) {
-      this.hasError = true
-    }.bind(this))
-    .finally(function () {
-      this.loading = false
-    }.bind(this))
-  },
-  filters: {
-    currencyDecimal(value) {
-      return value.toFixed(2)
+  watch: {
+    km: function(value) {
+      this.km = value
+      this.m = value * 1000
+      this.mm = value * 1000000
+    },
+    m: function(value) {
+      this.km = value / 1000
+      this.m = value
+      this.mm = value * 1000
+    },
+    mm: function(value) {
+      this.km = value / 1000000
+      this.m = value /1000
+      this.mm = value
     }
   }
 })

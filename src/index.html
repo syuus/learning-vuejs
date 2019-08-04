@@ -4,25 +4,17 @@
   <meta charset="UTF-8"/>
   <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
   <script defer src="assets/scripts/main.js"></script>
+  <style media="screen">
+    [v-cloak] {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <div id="app">
-    <h2>Bitcoin Price</h2>
-    <section v-if="hasError">
-      Error.
-    </section>
-    <section v-else>
-      <div v-if="loading">
-        Loading...
-      </div>
-      <div v-else>
-        <ul v-cloak>
-          <li v-for="(rate, currency) in bpi">
-            {{ currency }}: {{ rate.rate_float | currencyDecimal }}
-          </li>
-        </ul>
-      </div>
-    </section>
+    <p><input type="text" v-model:value="km"></p>
+    <p><input type="text" v-model:value="m"></p>
+    <p><input type="text" v-model:value="mm"></p>
   </div>
 </body>
 </html>
