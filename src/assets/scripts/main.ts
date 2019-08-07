@@ -3,25 +3,16 @@ import Vue from 'vue';
 const app = new Vue({
   el: '#app',
   data: {
-    km: 0,
-    m: 0,
-    mm: 0,
+    uri: '',
   },
-  watch: {
-    km: function(value) {
-      this.km = value
-      this.m = value * 1000
-      this.mm = value * 1000000
+  computed: {
+    timeLineUri: function() {
+      let separator = this.uri.match(/\?/) ? '&' : '?';
+      return this.uri + separator + 'm=ln_tl';
     },
-    m: function(value) {
-      this.km = value / 1000
-      this.m = value
-      this.mm = value * 1000
+    messageUri: function () {
+      let separator = this.uri.match(/\?/) ? '&' : '?';
+      return this.uri + separator + 'm=ln_ms';
     },
-    mm: function(value) {
-      this.km = value / 1000000
-      this.m = value /1000
-      this.mm = value
-    }
   }
 })
