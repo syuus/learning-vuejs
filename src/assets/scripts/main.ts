@@ -1,18 +1,42 @@
 import Vue from 'vue';
+import _ from 'lodash';
+import axios from 'axios';
 
 const app = new Vue({
   el: '#app',
   data: {
-    uri: '',
+    items: null,
+    keyword: '',
+    message: ''
   },
-  computed: {
-    timeLineUri: function() {
-      let separator = this.uri.match(/\?/) ? '&' : '?';
-      return this.uri + separator + 'm=ln_tl';
-    },
-    messageUri: function () {
-      let separator = this.uri.match(/\?/) ? '&' : '?';
-      return this.uri + separator + 'm=ln_ms';
-    },
+  watch: {
+
+  },
+  created: function() {
+    this.keyword = 'JavaScript';
+    this.getAnswer();
+  },
+  methods: {
+    getAnswer: function() {
+      if (this.keyword === '') {
+        this.items = null;
+        return;
+      }
+
+      this.message = 'Loading...';
+      var vm = this;
+      var params = { page: 1, per_page: 20, query: this.keyword };
+
+      axios.get('https://qiita.com/api/v2/items', { params })
+        .then(function(response) {
+          vm.items = response.data;
+        })
+        .catch(function(error) {
+          vm.message = 'Error!' + error;
+        })
+        .finally(function() {
+          vm.message = '';
+        })
+    }
   }
 })
